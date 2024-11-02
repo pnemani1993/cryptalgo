@@ -1,5 +1,21 @@
 # Golang implementation #
 
+## Functional Programming paradigm ##
+
+1. First-class functions
+: When functions are treated as data type variables and can be used like any other variables. These first-class functions can be passed to functions as parameters, or stored in data structures. 
+
+2. Functional programs try to avoid constructions that produce different outputs on every execution. They make use of recursion
+
+3. Immutability
+: In functional programming, we cannot modify a variable after it is created, because we want to maintain the state of the program throughout the runtime of the program. 
+
+4. Pure functions
+: They have two major properties: They produce the same output if the given input is the same and they have no side effects. 
+
+5. Higher order functions
+: A function that accepts other functions as parameters or returns functions as outputs is called a high order function. This process applies a function to its parameters at each iteration while returning a new function that accepts the next parameter. 
+
 ## Closure and Recursion in programming ##
 
 These two form the basis for functional programming in Go. 
@@ -78,3 +94,14 @@ p = &i
 `*` operator the pointer's underlying value. 
 
 [Resume](https://go.dev/tour/moretypes/1)
+
+## Struct ##
+A Struct is a collection of fields. 
+
+The fields in a struct are accessed using dot operator. 
+They can also be accessed using a struct pointer. 
+
+## Slice ##
+The zero value of a slice is `nil`.
+
+[Resume: 20240706](https://go.dev/tour/moretypes/15)

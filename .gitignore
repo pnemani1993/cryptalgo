@@ -5,3 +5,7 @@ javascript\node_modules
 **/node_modules
 
 **/*.class
+
+.vscode/
+
+**/__pycache__/*
