@@ -1,0 +1,11 @@
+# initial to ignore
+
+./javascript/node_modules
+javascript\node_modules
+**/node_modules
+
+**/*.class
+
+.vscode/
+
+**/__pycache__/*
