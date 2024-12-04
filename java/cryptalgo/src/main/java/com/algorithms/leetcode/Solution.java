@@ -170,4 +170,41 @@ public class Solution {
         return false;
     }
 
+    public static int jump(int[] nums){
+        if(nums.length == 1 ) return 0;
+        if( nums.length == 2 ) return 1;
+        int steps = 0;
+        int mainIndex = nums.length - 1;
+        int jumpIndex = nums.length - 2;
+        while(mainIndex > 0){
+            mainIndex = countJumps(nums, mainIndex, jumpIndex);
+            jumpIndex = mainIndex - 1;
+            steps++;
+        }
+        return steps;
+    }
+
+    public static int countJumps(int[] nums, int mainIndex, int jumpIndex){
+        int staticIndex = jumpIndex;
+        while(jumpIndex >= 0){
+            if(nums[jumpIndex] >= mainIndex - jumpIndex && isReachable(nums, jumpIndex)){
+                staticIndex = jumpIndex;
+            } 
+            jumpIndex--;
+        }
+        return staticIndex;
+    }
+
+    public static boolean isReachable(int[] nums, int index){
+        int jumpIndex = index - 1;
+        while( jumpIndex >=0 ){
+            if(nums[jumpIndex] >= index - jumpIndex) return true;
+            else{
+                jumpIndex--;
+            }
+        }
+        if(jumpIndex == -1) return true;
+        return false;
+    }
+
 }
