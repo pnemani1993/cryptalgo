@@ -1,5 +1,11 @@
 package com.algorithms.leetcode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Solution {
 
     public static void merge(int[] nums1, int m, int[] nums2, int n) {
@@ -205,6 +211,194 @@ public class Solution {
         }
         if(jumpIndex == -1) return true;
         return false;
+    }
+
+    // 20241209 Climbing Stairs: Dynamic Programming (Easy) #70
+    public static int climbingStairs(int n){
+        if(n == 1) return 1;
+        else if(n == 2) return 2;
+        else if(n ==3) return 3;
+        return climbingStairs(n -1) + climbingStairs(n-2);
+    } 
+
+    public static int climbStairs(int n){
+        if(n == 1 || n == 0) return 1;
+
+        Map<Integer, Integer> mapping = new HashMap<>();
+
+        return climbStairs(n,mapping);
+
+    }
+
+    static int climbStairs(int num, Map<Integer, Integer> mapping){
+        if(num == 1 || num == 0) return 1;
+        if(!mapping.containsKey(num)){
+            mapping.put(num, climbStairs(num - 1, mapping) + climbStairs(num - 2, mapping));
+        }
+
+        return mapping.get(num);
+    } 
+
+    static void testClimbStairs(){
+        System.out.println("For 2: " + climbStairs(2) );
+        System.out.println("For 7: " + climbStairs(7));
+        System.out.println("For 41: " + climbStairs(41));
+        System.out.println("For 45: " + climbStairs(45));
+    }
+
+
+
+    public static int maximumLength(String s) {
+        
+        int[] alpha = new int[26];
+        final int DIFF = 97;
+
+        for(int i = 0; i < s.length(); i ++) {
+            alpha[s.charAt(i) - 97]++;
+        }
+        
+        if(!Arrays.stream(alpha).anyMatch(value -> value >= 3)) return -1;
+
+        
+
+        return 1;
+
+    }
+
+    // # 2981 Leetcode: Find longest special substring
+    static boolean containsSpecial(String str){
+        Map<String, Integer> mapping = new HashMap<>();
+        
+        for(int i = 0; i < str.length(); i ++) {
+            String ch = String.valueOf(str.charAt(i));
+            if(mapping.containsKey(ch)) mapping.put(ch, mapping.get(ch) + 1);
+            else mapping.put(ch, 1);
+        }
+        
+        return mapping.values().stream().anyMatch(value -> value >= 3);
+    }
+
+    public static int divide(int dividend, int divisor) {
+        if(dividend == 0 || divisor == -2147483648) return 0;
+        if(dividend == -2147483648 && divisor == -1) return 2147483647;
+        if(divisor == 1) return dividend;
+        boolean isNegative;
+        if((dividend < 0 && divisor < 0) || (dividend > 0 && divisor > 0) ) isNegative = false;
+        else isNegative = true;
+        if (!isNegative && dividend > 0 && divisor > dividend) return 0;
+        if(isNegative && divisor == -1) return -dividend; 
+        if(!isNegative && dividend < 0 && divisor < dividend) return 0;
+        
+        int quotient = 0;
+        int number = dividend;
+        if(isNegative && dividend < 0){
+            while(number < -divisor){
+                number += divisor;
+                quotient++;
+            }
+            return -quotient;
+        } 
+        else if(isNegative && divisor < 0){
+            while(number >= -divisor){
+                number += divisor;
+                quotient++;
+            }
+            return -quotient;
+        } 
+        else if(!isNegative && dividend < 0){
+            while(number <= divisor){
+                number -= divisor;
+                quotient++;
+            }
+            return quotient;
+        }        
+        while(number >= divisor){
+            number -= divisor;
+            quotient++;
+        }
+        return quotient;
+    }
+
+    public static List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> returnArray = new ArrayList<>();
+
+        return returnArray;
+    }
+
+    public static int fib(int n) {
+        if(n == 0) return 0;
+        if(n == 1) return 1;
+
+        int prev = 0, curr = 1;
+        for( int i = 2; i <= n; i++){
+            int temp = curr;
+            curr = curr + prev;
+            prev = temp;
+        }
+        return curr;
+    }
+
+    public static void testFib(){
+        System.out.println("2: " + fib(2) );
+        System.out.println("5: " + fib(5));
+        System.out.println("30: " + fib(30));
+    }
+
+    public static int maxSubArray(int[] nums) {
+        if(nums.length == 1) return nums[0];
+        int max = nums[0];
+        int sum = 0;
+        for(int i = 0; i < nums.length; i++){
+            if(sum < 0) sum = 0;
+            sum += nums[i];
+            if(sum > max) max = sum;
+        }
+        return max;
+    }
+
+    public static void testMaxSubArray(){
+        int[] arr1 = new int[]{-2,1,-3,4,-1,2,1,-5,4};
+        int[] arr2 = new int[]{5,4,-1,7,8};
+        System.out.println("For array 1: " + maxSubArray(arr1));
+        System.out.println("For array 2: " + maxSubArray(arr2));
+    }
+
+    public static int maxProfit(int[] prices) {
+        if(prices.length == 1) return 0;
+        int maxProfit = 0;
+        int sum = 0;
+        int[] diff = new int[prices.length - 1];
+        for(int i = 0; i < prices.length - 1; i++){
+            diff[i] = prices[i + 1] - prices[i];
+        } 
+        for(int i = 0; i < diff.length; i++){
+            if(sum < 0) sum = 0;
+            sum += diff[i];
+            if(sum > maxProfit) maxProfit = sum;
+        }
+
+        return maxProfit; 
+    }
+
+    public static void testMaxProfit(){
+        int[] arr1 = new int[]{7,1,5,3,6,4};
+        int[] arr2 = new int[]{7,6,4,3,1};
+
+        System.out.println("Profit for prices 1: " + maxProfit(arr1));
+        System.out.println("Profit for prices 2: " + maxProfit(arr2));
+    }
+
+
+
+    public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
+        // testClimbStairs();
+        // testFib();
+        // testMaxSubArray();
+        testMaxProfit();
+        long endTime = System.currentTimeMillis();
+        System.out.println("Total time taken: " + (endTime - startTime) + "ms");
+        // System.out.println(maximumLength("abacadae"));
     }
 
 }

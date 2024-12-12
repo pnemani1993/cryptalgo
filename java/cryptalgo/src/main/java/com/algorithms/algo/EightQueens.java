@@ -8,6 +8,12 @@ public class EightQueens {
     private static final String[] PRINT_BOARD = {"X", "X", "X", "X", "X", "X", "X", "X"};
     private static int[] board = {-1, -1, -1, -1, -1, -1, -1, -1};
 
+    public static void main(String[] args) {
+        EightQueens eQueens = new EightQueens();
+        // eQueens.printBoard();
+        
+    }
+
     public static boolean search(int startPosition) {
         if(startPosition >= SIZE || startPosition < 0){ 
             System.out.println("Invalid startPosition");
@@ -49,6 +55,7 @@ public class EightQueens {
         }
         return true;
     }
+
 
     public static void printBoard(){
         for(int i = 0; i < SIZE; i++){
